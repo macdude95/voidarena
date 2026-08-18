@@ -47,6 +47,7 @@ jobs:
 
       - name: Export Project
         run: |
+          mkdir -p build
           ./godot --headless --export-release "Web" build/index.html --path .
 
       - name: Upload artifact
