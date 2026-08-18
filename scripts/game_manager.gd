@@ -15,6 +15,10 @@ func _ready() -> void:
 	$HUD.set_wave(1)
 	spawn_wave()
 
+func _input(event: InputEvent) -> void:
+	if is_game_over and event.is_action_pressed("shoot"):
+		restart()
+
 func _on_enemy_timer() -> void:
 	if is_game_over:
 		return
@@ -22,15 +26,13 @@ func _on_enemy_timer() -> void:
 		spawn_enemy()
 
 func spawn_wave() -> void:
-	enemies_per_wave = 5 + (wave - 1) * 3  # 5, 8, 11, 14...
+	enemies_per_wave = 5 + (wave - 1) * 3
 	enemies_alive = 0
 	$HUD.set_wave(wave)
-	# Increase spawn rate over waves
 	$EnemyTimer.wait_time = max(0.3, 1.5 - (wave - 1) * 0.1)
 
 func spawn_enemy() -> void:
 	var enemy = enemy_scene.instantiate()
-	# Random position on arena edge
 	var angle = randf() * TAU
 	var spawn_pos = Vector2.from_angle(angle) * (arena_radius - 30.0)
 	enemy.position = spawn_pos
@@ -43,7 +45,6 @@ func on_enemy_killed() -> void:
 	score += 1
 	enemies_alive -= 1
 	$HUD.set_score(score)
-	# Advance wave when all enemies killed
 	if enemies_alive <= 0:
 		wave += 1
 		spawn_wave()
@@ -54,19 +55,10 @@ func game_over() -> void:
 	is_game_over = true
 	$EnemyTimer.stop()
 	$HUD.show_game_over(score)
-	# Hide player
 	$Player.visible = false
-	$Player.set_physics_process(false)
 	# Clear remaining enemies
 	for e in $Enemies.get_children():
 		e.queue_free()
-	# Wait for click to restart
-	await get_tree().create_timer(1.0).timeout
-	# Poll for input to restart
-	while is_game_over:
-		if Input.is_action_just_pressed("shoot"):
-			restart()
-		await get_tree().process_frame
 
 func restart() -> void:
 	get_tree().reload_current_scene()
