@@ -51,5 +51,6 @@ shoot={
 
 [rendering]
 
+environment/defaults/default_clear_color=Color(0.008, 0.01, 0.014, 1)
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.web="gl_compatibility"

@@ -8,6 +8,8 @@ var is_game_over: bool = false
 
 var enemy_scene = preload("res://scenes/enemy.tscn")
 var arena_radius: float = 340.0
+var visible_radius: float = 185.0
+var shotgun_count: int = 0
 
 func _ready() -> void:
 	$EnemyTimer.timeout.connect(_on_enemy_timer)
@@ -34,7 +36,9 @@ func spawn_wave() -> void:
 func spawn_enemy() -> void:
 	var enemy = enemy_scene.instantiate()
 	var angle = randf() * TAU
-	var spawn_pos = Vector2.from_angle(angle) * (arena_radius - 30.0)
+	# Keep arrivals outside the player's light radius so threats emerge from darkness.
+	var spawn_distance = randf_range(visible_radius + 35.0, arena_radius - 28.0)
+	var spawn_pos = Vector2.from_angle(angle) * spawn_distance
 	enemy.position = spawn_pos
 	enemy.speed = 80.0 + randf_range(0, 40.0 + wave * 10.0)
 	enemy.target = $Player
@@ -48,6 +52,10 @@ func on_enemy_killed() -> void:
 	if enemies_alive <= 0:
 		wave += 1
 		spawn_wave()
+
+func on_player_shotgun() -> void:
+	shotgun_count += 1
+	$HUD.set_weapon_hint("BURST // %02d" % shotgun_count)
 
 func game_over() -> void:
 	if is_game_over:
