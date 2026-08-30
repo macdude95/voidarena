@@ -34,7 +34,10 @@ func _physics_process(delta: float) -> void:
 			# Crawler: simple, relentless pursuit. It is the baseline threat.
 			position += direction * speed * delta
 
-	rotation = direction.angle()
+	var visual_direction := direction
+	if enemy_type == 1 and rusher_state > 0:
+		visual_direction = rusher_heading
+	rotation = visual_direction.angle()
 	queue_redraw()
 
 func _process_rusher(delta: float, direction: Vector2) -> void:

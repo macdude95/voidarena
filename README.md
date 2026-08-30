@@ -30,7 +30,7 @@ The intended experience is short, replayable runs where:
 
 There are currently two fire behaviors on the same weapon:
 
-- **Quick click:** fires a seven-projectile spread burst.
+- **Quick click:** fires a seven-projectile spread burst, with a short recovery window between bursts.
 - **Hold left click:** fires a rapid single-projectile stream.
 
 This keeps the controls simple while giving the player a choice between burst damage and sustained fire.

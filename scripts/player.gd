@@ -12,6 +12,7 @@ var alive := true
 var mouse_held := false
 var hold_time := 0.0
 var auto_fire_time := 0.0
+var shotgun_cooldown := 0.0
 var recoil := 0.0
 
 func _ready() -> void:
@@ -21,6 +22,7 @@ func _physics_process(delta: float) -> void:
 	if not alive:
 		return
 
+	shotgun_cooldown = maxf(0.0, shotgun_cooldown - delta)
 	var direction := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	velocity = direction * SPEED
 	move_and_slide()
@@ -49,13 +51,14 @@ func _input(event: InputEvent) -> void:
 			auto_fire_time = 0.0
 		else:
 			mouse_held = false
-			if hold_time < HOLD_THRESHOLD:
+			if hold_time < HOLD_THRESHOLD and shotgun_cooldown <= 0.0:
 				shotgun_blast()
 
 func rapid_fire() -> void:
 	fire_bullet((get_global_mouse_position() - global_position).normalized(), 1.0)
 
 func shotgun_blast() -> void:
+	shotgun_cooldown = 0.34
 	var aim := (get_global_mouse_position() - global_position).normalized()
 	for i in SHOTGUN_PELLETS:
 		var t := float(i) / float(SHOTGUN_PELLETS - 1) - 0.5
