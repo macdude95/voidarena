@@ -60,7 +60,6 @@ func shotgun_blast() -> void:
 	for i in SHOTGUN_PELLETS:
 		var t := float(i) / float(SHOTGUN_PELLETS - 1) - 0.5
 		fire_bullet(aim.rotated(t * SHOTGUN_SPREAD), 0.75)
-	get_tree().current_scene.on_player_shotgun()
 
 func fire_bullet(direction: Vector2, bullet_scale: float) -> void:
 	var bullet = bullet_scene.instantiate()
