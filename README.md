@@ -57,15 +57,27 @@ All enemy types are currently one-hit kills.
 
 ### Crawler
 
-The baseline red diamond enemy. It moves directly toward the player at a moderate speed and appears from the first wave.
+The baseline red diamond enemy. It moves directly toward the player at a moderate speed and appears from the first wave. Its danger comes from persistence and numbers.
 
 ### Rusher
 
-A fast crimson arrowhead that commits directly to the player. Rushers begin appearing in wave 2.
+A fast crimson arrowhead that uses a three-step behavior rather than simply moving faster:
+
+1. Stalks toward the player at a reduced pace.
+2. Briefly telegraphs its attack with an orange pulse.
+3. Locks onto the player’s current position and performs a short, high-speed committed charge.
+
+Rushers begin appearing in wave 2. The telegraph creates a moment to dodge or kill them, while the committed charge punishes standing still.
 
 ### Wraith
 
-A pale diamond enemy that strafes laterally while approaching. Wraiths begin appearing in wave 3 and make aiming less predictable.
+A pale diamond enemy that applies curved, lateral pressure:
+
+- Orbits around the player instead of homing directly.
+- Gradually closes distance while strafing.
+- Periodically reverses its orbit direction.
+
+Wraiths begin appearing in wave 3 and make aiming and positioning less predictable.
 
 ## HUD
 
