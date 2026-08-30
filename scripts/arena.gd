@@ -1,6 +1,6 @@
 extends Node2D
 
-const RADIUS := 460.0
+const RADIUS := 520.0
 
 func _ready() -> void:
 	queue_redraw()

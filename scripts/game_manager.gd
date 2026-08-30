@@ -7,7 +7,7 @@ var enemies_per_wave: int = 5
 var is_game_over: bool = false
 
 var enemy_scene = preload("res://scenes/enemy.tscn")
-var arena_radius: float = 460.0
+var arena_radius: float = 520.0
 var visible_radius: float = 270.0
 
 

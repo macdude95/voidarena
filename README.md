@@ -37,7 +37,7 @@ This keeps the controls simple while giving the player a choice between burst da
 
 ### Arena and Visibility
 
-- The arena is circular with a radius of approximately **460 world units**.
+- The arena is circular with a radius of approximately **520 world units**.
 - The player has a limited radial light radius of approximately **270 world units**.
 - The rest of the arena is heavily obscured.
 - Enemies spawn outside the visible radius, so threats enter from darkness rather than appearing directly beside the player.
@@ -64,8 +64,8 @@ The baseline red diamond enemy. It moves directly toward the player at a moderat
 A fast crimson arrowhead that uses a three-step behavior rather than simply moving faster:
 
 1. Stalks toward the player at a reduced pace.
-2. Briefly telegraphs its attack with an orange pulse.
-3. Locks onto the player’s current position and performs a short, high-speed committed charge.
+2. Briefly telegraphs its attack with an orange pulse for approximately 0.82 seconds.
+3. Locks onto the player’s current position when the telegraph begins and performs a short, high-speed committed charge.
 
 Rushers begin appearing in wave 2. The telegraph creates a moment to dodge or kill them, while the committed charge punishes standing still.
 

@@ -44,7 +44,9 @@ func _process_rusher(delta: float, direction: Vector2) -> void:
 		position += direction * speed * 0.62 * delta
 		if rusher_timer <= 0.0:
 			rusher_state = 1
-			rusher_timer = 0.48
+			rusher_timer = 0.82
+			# Lock the attack vector when the warning begins. The player can dodge it,
+			# but the Rusher will not correct its trajectory during the warning.
 			rusher_heading = direction
 	elif rusher_state == 1:
 		# Slow down while telegraphing; the pulsing body warns the player.
@@ -52,8 +54,6 @@ func _process_rusher(delta: float, direction: Vector2) -> void:
 		if rusher_timer <= 0.0:
 			rusher_state = 2
 			rusher_timer = 0.34
-			if target and is_instance_valid(target):
-				rusher_heading = (target.global_position - global_position).normalized()
 	else:
 		position += rusher_heading * speed * 3.2 * delta
 		if rusher_timer <= 0.0:
