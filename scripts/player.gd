@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 const SPEED := 280.0
-const ARENA_RADIUS := 340.0
+const ARENA_RADIUS := 460.0
 const HOLD_THRESHOLD := 0.16
 const AUTO_FIRE_INTERVAL := 0.095
 const SHOTGUN_PELLETS := 7

@@ -7,8 +7,8 @@ var enemies_per_wave: int = 5
 var is_game_over: bool = false
 
 var enemy_scene = preload("res://scenes/enemy.tscn")
-var arena_radius: float = 340.0
-var visible_radius: float = 185.0
+var arena_radius: float = 460.0
+var visible_radius: float = 270.0
 
 
 func _ready() -> void:
@@ -37,10 +37,19 @@ func spawn_enemy() -> void:
 	var enemy = enemy_scene.instantiate()
 	var angle = randf() * TAU
 	# Keep arrivals outside the player's light radius so threats emerge from darkness.
-	var spawn_distance = randf_range(visible_radius + 35.0, arena_radius - 28.0)
+	var spawn_distance = randf_range(visible_radius + 45.0, arena_radius - 28.0)
 	var spawn_pos = Vector2.from_angle(angle) * spawn_distance
 	enemy.position = spawn_pos
-	enemy.speed = 80.0 + randf_range(0, 40.0 + wave * 10.0)
+	var type_roll := randf()
+	if wave >= 2 and type_roll < 0.28:
+		enemy.enemy_type = 1 # Rusher
+		enemy.speed = 145.0 + wave * 7.0
+	elif wave >= 3 and type_roll < 0.52:
+		enemy.enemy_type = 2 # Wraith
+		enemy.speed = 72.0 + wave * 4.0
+	else:
+		enemy.enemy_type = 0 # Crawler
+		enemy.speed = 80.0 + randf_range(0, 40.0 + wave * 10.0)
 	enemy.target = $Player
 	$Enemies.add_child(enemy)
 	enemies_alive += 1
